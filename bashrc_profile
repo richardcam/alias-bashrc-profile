@@ -1,3 +1,23 @@
+# Alias to windows mobaxterm
+alias sbrc='source ~/.bashrc'
+export VISUAL='vim'
+export EDITOR='$VISUAL'
+alias rmbk='rm -rf *.bak'
+alias ntpd='/drives/c/notepad++/notepad++.exe'
+alias code='/drives/c/VSCodePortable-x64/VSCodePortable-x64.exe'
+alias prof='cd /drives/c/User/$USERNAME'
+alias dowf='cd /drives/c/User/$USERNAME/Downloads'
+alias doc='cd /drives/c/User/$USERNAME/OneDrive - Santander Office 365/Documentos'
+alias glab='cd /drives/c/moba/home/glab'
+
+# Alias Openshift
+
+
+# Alias Git
+gclonecd(){
+ git clone "$1" && cd "$(basename "$1" .git)"
+}
+
 alias g='git'
 alias g.c='git add . && git commit -m'
 alias gaa='git add --all'
@@ -16,6 +36,7 @@ alias gbsg='git bisect good'
 alias gbsr='git bisect reset'
 alias gbss='git bisect start'
 alias gcbh='git clone --branch'
+alias gce='git clone'
 alias gc='git commit -v'
 alias gc!='git commit -v --amend'
 alias gca='git commit -v -a'
