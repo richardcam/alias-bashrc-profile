@@ -1,42 +1,52 @@
-# Alias to windows mobaxterm
-alias sbrc='source ~/.bashrc'
-export VISUAL='vim'
-export EDITOR='$VISUAL'
-alias rmbk='rm -rf *.bak'
-alias ntpd='/drives/c/notepad++/notepad++.exe'
-alias code='/drives/c/VSCodePortable-x64/VSCodePortable-x64.exe'
-alias prof='cd /drives/c/User/$USERNAME'
-alias dowf='cd /drives/c/User/$USERNAME/Downloads'
-alias doc='cd /drives/c/User/$USERNAME/OneDrive - Santander Office 365/Documentos'
-alias glab='cd /drives/c/moba/home/glab'
+# Custom prompt
+PS1='\[\033[1;32m\]\u@\h \[\033[0;36m\]\w$(gbranch)\[\033[0m\]$ '
 
-# Alias Openshift
-
-
-# Alias Git
-gclonecd(){
- git clone "$1" && cd "$(basename "$1" .git)"
+#Function to prompt
+gbranch() {
+git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
+# Alias to Windows:
+export VISUAL=vim
+export EDITOR="$VISUAL"
+alias sbrc='source ~/.bashrc'
+alias prof='cd /drives/c/Users/$USERNAME'
+alias dow='cd /drives/c/Users/$USERNAME/Downloads'
+alias rmbk='rm -rf *.bak'
+alias ll='ls -la --color'
+alias lss='ls | sort'
+alias c.='cd ..'
+alias rm='rm -rf'
+# Software not found
+alias pshell='/drives/c/Windows/SysWOW64/WindowsPowerShell/v1.0/powershell.exe'
+alias ntpd='/drives/c/notepad++/notepad++.exe'
+alias code='/drives/c/Archivos\ de\ programa/Microsoft\ VS\ Code/Code.exe'
+alias py3='/drives/c/Program\ Files/Python311/python.exe'
+# Alias Git
 alias g='git'
-alias g.c='git add . && git commit -m'
+alias g.c='gst ; git add . && git commit -m'
 alias gaa='git add --all'
 alias gapa='git add --patch'
 alias gau='git add --update'
-alias gb='git branch'
-alias gnpb='git --no-pager branch'
-alias gba='git branch -a'
+alias gb='git branch | cat'
+alias gnpb='git --no-pager branch  | cat'
+alias gba='git branch -a  | cat'
+alias gbr='git branch -r  | cat'
 alias gbd='git branch -d'
 alias gbl='git blame -b -w'
-alias gbnm='git branch --no-merged'
-alias gbr='git branch --remote'
+alias gbnm='git branch --no-merged | cat'
+alias gbr='git branch --remote | cat'
 alias gbs='git bisect'
 alias gbsb='git bisect bad'
 alias gbsg='git bisect good'
 alias gbsr='git bisect reset'
 alias gbss='git bisect start'
-alias gcbh='git clone --branch'
-alias gce='git clone'
+alias gcbhp='glab ; git clone --branch preproduccion'
+alias gcbhp='git_pre_and_cd() { glab ; git clone --branch preproduccion "$@" && cd "$(basename "$1" .git)"; }; git_pre_and_cd'
+alias gcbh4='glab ; git clone --branch preproduccionocp4'
+alias gcbh4='git_ocp4_and_cd() { glab ; git clone --branch preproduccionocp4 "$@" && cd "$(basename "$1" .git)"; }; git_ocp4_and_cd'
+alias gce='glab ; git clone'
+alias gce='git_clone_and_cd() { glab ; git clone "$@" && cd "$(basename "$1" .git)"; }; git_clone_and_cd'
 alias gc='git commit -v'
 alias gc!='git commit -v --amend'
 alias gca='git commit -v -a'
@@ -83,7 +93,7 @@ alias glgga='git --no-pager log --graph --decorate --all'
 alias glgm='git --no-pager log --graph --max-count=10'
 alias gnpl='git --no-pager log --oneline'
 alias glgp='git --no-pager log --stat -p'
-alias glo='git --no-pager log --oneline --decorate'
+alias glo='git --no-pager log --oneline --decorate -10'
 alias glog='git --no-pager log --oneline --decorate --graph'
 alias glol='git --no-pager log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"'
 alias glola='git --no-pager log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --all'
@@ -144,3 +154,6 @@ alias gup='git pull --rebase'
 alias gupv='git pull --rebase -v'
 alias gvt='git verify-tag'
 alias gwch='git whatchanged -p --abbrev-commit --pretty=medium'
+
+source /etc/profile.d/bash_completion.sh
+export PATH=$PATH:ScriptsAOT:/drives/C/Program\ Files/Java/jdk1.8.0_361/bin
