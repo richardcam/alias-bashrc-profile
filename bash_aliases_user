@@ -5,7 +5,7 @@ alias lsa='ls -a'
 # tmux alias
 alias tmux='TERM=xterm-256color tmux'
 alias tls='tmux ls 2>/dev/null'
-alias tat='tmux attach -t'
+alias tat='tmux attach -t $(tls | awk "{print $1}" | cut -d ":" -f1)'
 alias tns='tmux new-session -s'
 alias tks='tmux kill-session -t'
 alias tksa='tmux kill-server'
@@ -25,6 +25,8 @@ alias pic='cd ~/Pictures'
 alias vid='cd ~/Videos'
 alias sbrc='source ~/.bashrc'
 alias hash='date "+%Y%m%d%H%M%S" | md5sum | cut -d" " -f1'
+alias tdck-hsh='date +"%Y%m%d%H%M%S"'
+export DOCKER_HOST=unix:///var/run/docker.sock
 # General aliases
 alias df='df -hT'
 alias du='du -sh * 2>/dev/null | sort -hr'
@@ -62,13 +64,23 @@ alias simu='apt install --simulate'
 alias remv='apt remove -y'
 alias srch='apt search'
 alias aprm='sudo apt autoremove -y'
-alias agdug='ntug=$(apt-get dist-upgrade | sed -n "/back:/ {n;p}") && apt-mark unhold$ntug && apt-get install -y$ntug && unset ntug'
+alias agdug='ntug=$(apt-get dist-upgrade | sed -n "/:/ {n;p}") && apt-mark unhold$ntug && apt-get install -y$ntug && unset ntug'
 # Network aliases
 alias ip='ip -c'
 # Git aliases
 # alias g='git'
+alias g.c='gst ; git add . && git commit -m'
+alias gcln='git clone'
 alias gst='git status'
 alias gl='git log'
+alias glg='git --no-pager log --stat'
+alias glgg='git --no-pager log --graph'
+alias glgga='git --no-pager log --graph --decorate --all'
+alias glgm='git --no-pager log --graph --max-count=10'
+alias gnpl='git --no-pager log --oneline'
+alias glgp='git --no-pager log --stat -p'
+alias glo='git --no-pager log --oneline --decorate -10'
+alias glog='git --no-pager log --oneline --decorate --graph'
 alias gd='git diff'
 alias ga='git add'
 alias gc='git commit'
@@ -79,6 +91,11 @@ alias gba='git branch -a'
 alias gbm='git branch --merged'
 alias gbug='git bisect'
 alias gcp='git cherry-pick'
+alias gc='git commit -v'
+alias gc!='git commit -v --amend'
+alias gca='git commit -v -a'
+alias gca!='git commit -v -a --amend'
+alias gcam='git commit -a -m'
 # Archive aliases
 alias tar='tar -cvf'
 alias untar='tar -xvf'
@@ -94,8 +111,7 @@ alias d='find . -type d -name'
 alias ff='find / -type f -name'
 alias fd='find / -type d -name'
 # Docker aliases
-alias d='docker'
-alias dc='docker-compose'
+alias dck='docker'
 alias di='docker images'
 alias dps='docker ps'
 alias dexec='docker exec -it'
@@ -104,6 +120,28 @@ alias drmi='docker rmi'
 alias dlogs='docker logs'
 alias dstop='docker stop'
 alias dstart='docker start'
+# Alias docker compose
+alias dcu='docker compose up'                     # Iniciar servicios
+alias dcu-d-b='docker compose up -d --build' 
+alias dcu-d='docker compose up -d'                # Iniciar servicios en segundo plano
+alias dcb='docker compose build'                  # Construir imágenes
+alias dcb-nc='docker compose build --no-cache'    # Construir imágenes sin usar caché
+alias dcd='docker compose down'                   # Detener y eliminar servicios
+alias dcd-v='docker compose down -v'              # Detener servicios y eliminar volúmenes
+alias dcl='docker compose logs'                   # Ver logs
+alias dclf='docker compose logs -f'               # Ver logs en tiempo real
+alias dcimg='docker compose images'
+alias dcp='docker compose ps'                     # Ver el estado de los servicios
+alias dcr='docker compose restart'                # Reiniciar todos los servicios
+alias dcrs='docker compose restart SERVICE_NAME'  # Reiniciar un servicio específico
+alias dcpv='docker volume ls'                     # Listar volúmenes
+alias dcpn='docker network ls'                    # Listar redes
+alias dce='docker compose exec'                   # Ejecutar comandos dentro de un servicio
+alias dcps='docker compose ps'                    # Ver servicios en ejecución
+alias dcpsa='docker compose ps -a'                # Ver todos los servicios, incluyendo los detenidos
+alias dcll='docker compose logs --tail 100'       # Ver los últimos 100 logs de los servicios
+alias dcs='docker compose stop'                   # Detener servicios sin eliminar contenedores
+
 # Python aliases
 alias py='python3'
 alias pip='pip3'
